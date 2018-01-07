@@ -1,0 +1,23 @@
+sudo: required
+dist: trusty
+
+os: linux
+language: generic
+
+services:
+  - docker
+
+env:
+  matrix:
+    - IMAGE=centos:5
+    - IMAGE=centos:6
+    - IMAGE=centos:7
+    - IMAGE=debian:7
+    - IMAGE=debian:8
+    - IMAGE=debian:9
+    - IMAGE=ubuntu:trusty
+    - IMAGE=ubuntu:xenial
+    - IMAGE=ubuntu:zesty
+
+script:
+  - sudo docker run  -v `pwd`:/vesta:rw ${IMAGE} /bin/bash -c "/vesta/install/vst-install.sh --nginx yes --apache yes --phpfpm no --named yes --remi yes --vsftpd yes --proftpd no --iptables yes --fail2ban yes --quota no --exim yes --dovecot yes --spamassassin yes --clamav yes --mysql yes --postgresql no --password 1234567890 --force --interactive no"
